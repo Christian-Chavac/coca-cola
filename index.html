@@ -1,455 +1,814 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Coca-Cola | Página Oficial</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+<title>Coca-Cola | Premium Experience</title>
 
-    body{
-      background:#f5f5f5;
-      color:#222;
-      line-height:1.6;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    header{
-      background:#e41c23;
-      color:white;
-      padding:20px 60px;
-      position:fixed;
-      width:100%;
-      top:0;
-      z-index:1000;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    header h1{
-      font-size:32px;
-    }
+<style>
 
-    nav a{
-      color:white;
-      text-decoration:none;
-      margin-left:20px;
-      font-weight:bold;
-      transition:0.3s;
-    }
+:root{
+  --red:#ff1f3d;
+  --dark:#050505;
+  --glass:rgba(255,255,255,0.08);
+  --white:#ffffff;
+  --gray:#cfcfcf;
+  --gradient:
+  linear-gradient(
+    135deg,
+    #ff1f3d,
+    #ff5c5c,
+    #ff003c
+  );
+}
 
-    nav a:hover{
-      color:#000;
-    }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
+}
 
-    .hero{
-      height:100vh;
-      background:
-      linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-      url('https://images.unsplash.com/photo-1629203851122-3726ecdf080e?q=80&w=1600&auto=format&fit=crop');
-      background-size:cover;
-      background-position:center;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      color:white;
-      padding:20px;
-    }
+body{
+  font-family:'Poppins',sans-serif;
+  background:#050505;
+  color:white;
+  overflow-x:hidden;
+}
 
-    .hero-content h2{
-      font-size:60px;
-      margin-bottom:20px;
-    }
+/* SCROLL */
 
-    .hero-content p{
-      font-size:22px;
-      margin-bottom:30px;
-    }
+::-webkit-scrollbar{
+  width:10px;
+}
 
-    .btn{
-      background:#e41c23;
-      color:white;
-      padding:15px 35px;
-      text-decoration:none;
-      border-radius:5px;
-      font-size:18px;
-      transition:0.3s;
-    }
+::-webkit-scrollbar-track{
+  background:#111;
+}
 
-    .btn:hover{
-      background:#b31318;
-    }
+::-webkit-scrollbar-thumb{
+  background:var(--red);
+  border-radius:20px;
+}
 
-    section{
-      padding:100px 60px;
-    }
+/* PARTICLES */
 
-    .title{
-      text-align:center;
-      margin-bottom:50px;
-    }
+.particles{
+  position:fixed;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  z-index:-2;
+}
 
-    .title h2{
-      font-size:40px;
-      color:#e41c23;
-    }
+.particles span{
+  position:absolute;
+  display:block;
+  width:4px;
+  height:4px;
+  background:white;
+  border-radius:50%;
+  animation:animate 25s linear infinite;
+  opacity:.3;
+}
 
-    .about{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:40px;
-      align-items:center;
-    }
+@keyframes animate{
+  0%{
+    transform:translateY(100vh) scale(0);
+  }
 
-    .about img{
-      width:100%;
-      border-radius:10px;
-    }
+  100%{
+    transform:translateY(-10vh) scale(1);
+  }
+}
 
-    .products{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:30px;
-    }
+/* HEADER */
 
-    .card{
-      background:white;
-      border-radius:10px;
-      overflow:hidden;
-      box-shadow:0 5px 15px rgba(0,0,0,0.1);
-      transition:0.3s;
-    }
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:25px 80px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:999;
+  backdrop-filter:blur(20px);
+  background:rgba(0,0,0,0.3);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
 
-    .card:hover{
-      transform:translateY(-10px);
-    }
+.logo{
+  font-size:38px;
+  font-weight:800;
+  letter-spacing:2px;
+  color:white;
+}
 
-    .card img{
-      width:100%;
-      height:300px;
-      object-fit:cover;
-    }
+.logo span{
+  color:var(--red);
+}
 
-    .card-content{
-      padding:20px;
-      text-align:center;
-    }
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:35px;
+  font-weight:500;
+  position:relative;
+  transition:.4s;
+}
 
-    .history{
-      background:#fff;
-    }
+nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:0%;
+  height:2px;
+  background:var(--red);
+  transition:.4s;
+}
 
-    .timeline{
-      display:grid;
-      gap:30px;
-    }
+nav a:hover::after{
+  width:100%;
+}
 
-    .timeline-item{
-      background:#f0f0f0;
-      padding:25px;
-      border-left:6px solid #e41c23;
-      border-radius:5px;
-    }
+nav a:hover{
+  color:var(--red);
+}
 
-    .stats{
-      background:#e41c23;
-      color:white;
-    }
+/* HERO */
 
-    .stats-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      gap:30px;
-      text-align:center;
-    }
+.hero{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
 
-    .stat h3{
-      font-size:50px;
-    }
+.hero::before{
+  content:"";
+  position:absolute;
+  width:700px;
+  height:700px;
+  background:radial-gradient(circle,var(--red),transparent 70%);
+  filter:blur(100px);
+  opacity:.4;
+  animation:pulse 5s infinite alternate;
+}
 
-    .contact{
-      background:#fff;
-    }
+@keyframes pulse{
+  from{
+    transform:scale(1);
+  }
 
-    form{
-      max-width:700px;
-      margin:auto;
-      display:grid;
-      gap:20px;
-    }
+  to{
+    transform:scale(1.3);
+  }
+}
 
-    input, textarea{
-      padding:15px;
-      border:1px solid #ccc;
-      border-radius:5px;
-      font-size:16px;
-    }
+.hero-content{
+  width:90%;
+  max-width:1400px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:80px;
+}
 
-    button{
-      background:#e41c23;
-      color:white;
-      border:none;
-      padding:15px;
-      font-size:18px;
-      border-radius:5px;
-      cursor:pointer;
-      transition:0.3s;
-    }
+.hero-text h1{
+  font-size:90px;
+  line-height:1;
+  margin-bottom:25px;
+  font-weight:800;
+}
 
-    button:hover{
-      background:#b31318;
-    }
+.hero-text h1 span{
+  background:var(--gradient);
+  -webkit-background-clip:text;
+  color:transparent;
+}
 
-    footer{
-      background:#111;
-      color:white;
-      text-align:center;
-      padding:30px;
-    }
+.hero-text p{
+  font-size:22px;
+  color:#ddd;
+  margin-bottom:40px;
+  line-height:1.8;
+}
 
-    @media(max-width:768px){
+.buttons{
+  display:flex;
+  gap:20px;
+}
 
-      header{
-        flex-direction:column;
-      }
+.btn{
+  padding:18px 40px;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:600;
+  transition:.4s;
+  position:relative;
+  overflow:hidden;
+}
 
-      nav{
-        margin-top:10px;
-      }
+.btn-primary{
+  background:var(--gradient);
+  color:white;
+  box-shadow:0 0 30px rgba(255,0,60,.4);
+}
 
-      .hero-content h2{
-        font-size:40px;
-      }
+.btn-primary:hover{
+  transform:translateY(-5px) scale(1.05);
+  box-shadow:0 0 50px rgba(255,0,60,.7);
+}
 
-      section{
-        padding:80px 20px;
-      }
-    }
-  </style>
+.btn-secondary{
+  border:1px solid rgba(255,255,255,0.2);
+  color:white;
+  backdrop-filter:blur(20px);
+}
+
+.btn-secondary:hover{
+  background:white;
+  color:black;
+}
+
+/* HERO IMAGE */
+
+.hero-image{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.hero-image img{
+  width:100%;
+  max-width:550px;
+  animation:float 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 60px rgba(255,0,60,.5));
+}
+
+@keyframes float{
+  0%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-25px);
+  }
+
+  100%{
+    transform:translateY(0px);
+  }
+}
+
+/* GLASS CARD */
+
+.glass{
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(20px);
+  border-radius:30px;
+  box-shadow:0 8px 40px rgba(0,0,0,.4);
+}
+
+/* SECTION */
+
+section{
+  padding:120px 8%;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:80px;
+}
+
+.section-title h2{
+  font-size:60px;
+  margin-bottom:20px;
+}
+
+.section-title p{
+  color:#aaa;
+  max-width:700px;
+  margin:auto;
+  line-height:1.8;
+}
+
+/* PRODUCTS */
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:40px;
+}
+
+.card{
+  padding:30px;
+  transition:.5s;
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+  180deg,
+  transparent,
+  rgba(255,0,60,.2)
+  );
+  opacity:0;
+  transition:.5s;
+}
+
+.card:hover::before{
+  opacity:1;
+}
+
+.card:hover{
+  transform:translateY(-15px);
+}
+
+.card img{
+  width:100%;
+  height:350px;
+  object-fit:contain;
+  margin-bottom:20px;
+  transition:.5s;
+}
+
+.card:hover img{
+  transform:scale(1.08) rotate(-3deg);
+}
+
+.card h3{
+  font-size:30px;
+  margin-bottom:15px;
+}
+
+.card p{
+  color:#bbb;
+  line-height:1.8;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+}
+
+.stat{
+  text-align:center;
+  padding:50px 30px;
+}
+
+.stat h3{
+  font-size:70px;
+  background:var(--gradient);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.stat p{
+  margin-top:10px;
+  color:#ccc;
+  font-size:20px;
+}
+
+/* VIDEO SECTION */
+
+.video-section{
+  position:relative;
+  min-height:80vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+.video-section video{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:-1;
+}
+
+.video-content{
+  text-align:center;
+  max-width:900px;
+}
+
+.video-content h2{
+  font-size:70px;
+  margin-bottom:20px;
+}
+
+.video-content p{
+  color:#ddd;
+  line-height:1.8;
+  font-size:20px;
+}
+
+/* CONTACT */
+
+.contact-wrapper{
+  max-width:900px;
+  margin:auto;
+  padding:50px;
+}
+
+form{
+  display:grid;
+  gap:25px;
+}
+
+input,
+textarea{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,.1);
+  padding:20px;
+  border-radius:15px;
+  color:white;
+  font-size:16px;
+  outline:none;
+  transition:.4s;
+}
+
+input:focus,
+textarea:focus{
+  border-color:var(--red);
+  box-shadow:0 0 20px rgba(255,0,60,.3);
+}
+
+/* FOOTER */
+
+footer{
+  padding:40px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,.08);
+  color:#888;
+}
+
+/* REVEAL ANIMATION */
+
+.reveal{
+  opacity:0;
+  transform:translateY(80px);
+  transition:1s;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* MOBILE */
+
+@media(max-width:1000px){
+
+.hero-content{
+  grid-template-columns:1fr;
+  text-align:center;
+}
+
+.hero-text h1{
+  font-size:65px;
+}
+
+.buttons{
+  justify-content:center;
+}
+
+header{
+  padding:20px;
+  flex-direction:column;
+}
+
+nav{
+  margin-top:15px;
+}
+
+nav a{
+  margin:0 10px;
+}
+
+.section-title h2{
+  font-size:45px;
+}
+
+.video-content h2{
+  font-size:45px;
+}
+
+}
+
+</style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <h1>Coca-Cola</h1>
+<!-- PARTICLES -->
 
-    <nav>
-      <a href="#inicio">Inicio</a>
-      <a href="#nosotros">Nosotros</a>
-      <a href="#productos">Productos</a>
-      <a href="#historia">Historia</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
-  </header>
+<div class="particles">
+  <span style="left:10%;animation-delay:0s;"></span>
+  <span style="left:20%;animation-delay:2s;"></span>
+  <span style="left:30%;animation-delay:4s;"></span>
+  <span style="left:40%;animation-delay:6s;"></span>
+  <span style="left:50%;animation-delay:8s;"></span>
+  <span style="left:60%;animation-delay:10s;"></span>
+  <span style="left:70%;animation-delay:12s;"></span>
+  <span style="left:80%;animation-delay:14s;"></span>
+  <span style="left:90%;animation-delay:16s;"></span>
+</div>
 
-  <!-- HERO -->
-  <section class="hero" id="inicio">
-    <div class="hero-content">
-      <h2>Destapa la Felicidad</h2>
-      <p>
-        La bebida más famosa del mundo acompañando momentos únicos desde 1886.
-      </p>
+<!-- HEADER -->
 
-      <a href="#productos" class="btn">Ver Productos</a>
-    </div>
-  </section>
+<header>
 
-  <!-- SOBRE NOSOTROS -->
-  <section id="nosotros">
-    <div class="title">
-      <h2>Sobre Coca-Cola</h2>
-    </div>
+<div class="logo">
+  Coca<span>Cola</span>
+</div>
 
-    <div class="about">
-      <div>
-        <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=1200&auto=format&fit=crop" alt="Coca Cola">
-      </div>
+<nav>
+  <a href="#inicio">Inicio</a>
+  <a href="#productos">Productos</a>
+  <a href="#stats">Impacto</a>
+  <a href="#contacto">Contacto</a>
+</nav>
 
-      <div>
-        <h3>Una Marca Mundial</h3>
+</header>
 
-        <p>
-          Coca-Cola es una de las marcas más reconocidas y consumidas en todo el mundo.
-          Presente en más de 200 países, la compañía ofrece bebidas refrescantes que
-          acompañan millones de momentos cada día.
-        </p>
+<!-- HERO -->
 
-        <br>
+<section class="hero" id="inicio">
 
-        <p>
-          Su misión es refrescar al mundo y marcar la diferencia mediante innovación,
-          sostenibilidad y experiencias inolvidables para sus consumidores.
-        </p>
+<div class="hero-content">
 
-        <br>
+<div class="hero-text reveal">
 
-        <p>
-          La empresa también trabaja en iniciativas ambientales y sociales,
-          promoviendo el reciclaje y la reducción de residuos.
-        </p>
-      </div>
-    </div>
-  </section>
+<h1>
+  Destapa la
+  <span>Experiencia</span>
+</h1>
 
-  <!-- PRODUCTOS -->
-  <section id="productos">
+<p>
+  Una landing page ultra premium inspirada en el futuro del diseño web.
+  Animaciones avanzadas, glassmorphism, efectos cinematográficos,
+  partículas dinámicas y una experiencia visual de nivel profesional.
+</p>
 
-    <div class="title">
-      <h2>Nuestros Productos</h2>
-    </div>
+<div class="buttons">
+  <a href="#productos" class="btn btn-primary">Explorar</a>
+  <a href="#contacto" class="btn btn-secondary">Contacto</a>
+</div>
 
-    <div class="products">
+</div>
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1581636625402-29b2a704ef13?q=80&w=1200&auto=format&fit=crop" alt="">
-        <div class="card-content">
-          <h3>Coca-Cola Original</h3>
-          <p>
-            El sabor clásico e inconfundible que ha acompañado generaciones.
-          </p>
-        </div>
-      </div>
+<div class="hero-image reveal">
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=1200&auto=format&fit=crop" alt="">
-        <div class="card-content">
-          <h3>Coca-Cola Zero</h3>
-          <p>
-            Todo el sabor de Coca-Cola sin azúcar.
-          </p>
-        </div>
-      </div>
+<img src="https://pngimg.com/d/cocacola_PNG13.png">
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1624517452488-04869289c4ca?q=80&w=1200&auto=format&fit=crop" alt="">
-        <div class="card-content">
-          <h3>Sprite</h3>
-          <p>
-            Refrescante sabor lima-limón ideal para cualquier ocasión.
-          </p>
-        </div>
-      </div>
+</div>
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1629203432180-71e9b6ef8d2f?q=80&w=1200&auto=format&fit=crop" alt="">
-        <div class="card-content">
-          <h3>Fanta</h3>
-          <p>
-            Bebida divertida y llena de sabor frutal.
-          </p>
-        </div>
-      </div>
+</div>
 
-    </div>
-  </section>
+</section>
 
-  <!-- HISTORIA -->
-  <section class="history" id="historia">
+<!-- PRODUCTS -->
 
-    <div class="title">
-      <h2>Nuestra Historia</h2>
-    </div>
+<section id="productos">
 
-    <div class="timeline">
+<div class="section-title reveal">
+  <h2>Nuestros Productos</h2>
 
-      <div class="timeline-item">
-        <h3>1886</h3>
-        <p>
-          John Pemberton crea la fórmula original de Coca-Cola en Atlanta, Estados Unidos.
-        </p>
-      </div>
+  <p>
+    Diseño elegante, efectos modernos y presentación premium para cada bebida.
+  </p>
+</div>
 
-      <div class="timeline-item">
-        <h3>1892</h3>
-        <p>
-          Se funda oficialmente The Coca-Cola Company.
-        </p>
-      </div>
+<div class="products">
 
-      <div class="timeline-item">
-        <h3>1920 - 1950</h3>
-        <p>
-          Coca-Cola se expande internacionalmente y se convierte en una marca global.
-        </p>
-      </div>
+<div class="card glass reveal">
 
-      <div class="timeline-item">
-        <h3>Actualidad</h3>
-        <p>
-          Coca-Cola continúa innovando con nuevas bebidas, campañas y proyectos sostenibles.
-        </p>
-      </div>
+<img src="https://pngimg.com/d/cocacola_PNG14.png">
 
-    </div>
-  </section>
+<h3>Coca-Cola Original</h3>
 
-  <!-- ESTADISTICAS -->
-  <section class="stats">
+<p>
+  El sabor legendario reinventado con una experiencia digital futurista.
+</p>
 
-    <div class="title">
-      <h2 style="color:white;">Coca-Cola en Números</h2>
-    </div>
+</div>
 
-    <div class="stats-grid">
+<div class="card glass reveal">
 
-      <div class="stat">
-        <h3>200+</h3>
-        <p>Países</p>
-      </div>
+<img src="https://pngimg.com/d/cocacola_PNG9.png">
 
-      <div class="stat">
-        <h3>1.9B</h3>
-        <p>Bebidas por día</p>
-      </div>
+<h3>Coca-Cola Zero</h3>
 
-      <div class="stat">
-        <h3>130+</h3>
-        <p>Años de historia</p>
-      </div>
+<p>
+  Estilo moderno con detalles visuales de alto impacto y lujo visual.
+</p>
 
-      <div class="stat">
-        <h3>500+</h3>
-        <p>Marcas globales</p>
-      </div>
+</div>
 
-    </div>
-  </section>
+<div class="card glass reveal">
 
-  <!-- CONTACTO -->
-  <section class="contact" id="contacto">
+<img src="https://pngimg.com/d/fanta_PNG25.png">
 
-    <div class="title">
-      <h2>Contacto</h2>
-    </div>
+<h3>Fanta</h3>
 
-    <form>
+<p>
+  Colores vibrantes, animaciones suaves y diseño interactivo avanzado.
+</p>
 
-      <input type="text" placeholder="Tu nombre" required>
+</div>
 
-      <input type="email" placeholder="Tu correo" required>
+</div>
 
-      <textarea rows="6" placeholder="Escribe tu mensaje"></textarea>
+</section>
 
-      <button type="submit">Enviar Mensaje</button>
+<!-- VIDEO SECTION -->
 
-    </form>
+<section class="video-section">
 
-  </section>
+<video autoplay muted loop playsinline>
+  <source src="https://cdn.coverr.co/videos/coverr-bubbles-in-soda-1560083867217?download=1080p" type="video/mp4">
+</video>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>
-      © 2026 Coca-Cola Landing Page | Diseñada para GitHub Pages
-    </p>
-  </footer>
+<div class="overlay"></div>
+
+<div class="video-content reveal">
+
+<h2>Diseño Cinematográfico</h2>
+
+<p>
+  Esta sección usa video fullscreen de fondo, overlays oscuros,
+  tipografía premium y efectos visuales inmersivos.
+</p>
+
+</div>
+
+</section>
+
+<!-- STATS -->
+
+<section id="stats">
+
+<div class="section-title reveal">
+  <h2>Coca-Cola en Números</h2>
+</div>
+
+<div class="stats">
+
+<div class="stat glass reveal">
+  <h3>200+</h3>
+  <p>Países</p>
+</div>
+
+<div class="stat glass reveal">
+  <h3>1.9B</h3>
+  <p>Bebidas al día</p>
+</div>
+
+<div class="stat glass reveal">
+  <h3>500+</h3>
+  <p>Marcas globales</p>
+</div>
+
+<div class="stat glass reveal">
+  <h3>138+</h3>
+  <p>Años de historia</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contacto">
+
+<div class="section-title reveal">
+
+<h2>Contacto Premium</h2>
+
+<p>
+  Formulario moderno con glassmorphism y efectos avanzados.
+</p>
+
+</div>
+
+<div class="contact-wrapper glass reveal">
+
+<form>
+
+<input type="text" placeholder="Tu Nombre">
+
+<input type="email" placeholder="Tu Correo">
+
+<textarea rows="6" placeholder="Escribe tu mensaje"></textarea>
+
+<button class="btn btn-primary">
+  Enviar Mensaje
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  © 2026 Coca-Cola Premium Experience | Ultra Modern UI
+</footer>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+// REVEAL ON SCROLL
+
+window.addEventListener('scroll', reveal);
+
+function reveal(){
+
+const reveals = document.querySelectorAll('.reveal');
+
+for(let i = 0; i < reveals.length; i++){
+
+let windowheight = window.innerHeight;
+let revealtop = reveals[i].getBoundingClientRect().top;
+let revealpoint = 100;
+
+if(revealtop < windowheight - revealpoint){
+  reveals[i].classList.add('active');
+}
+
+}
+
+}
+
+// PARALLAX EFFECT
+
+window.addEventListener("scroll", function(){
+
+const scrolled = window.pageYOffset;
+
+document.querySelector(".hero-image img").style.transform =
+`translateY(${scrolled * 0.1}px)`;
+
+});
+
+// MOUSE GLOW
+
+document.addEventListener("mousemove", e => {
+
+const glow = document.createElement("div");
+
+glow.style.position = "fixed";
+glow.style.left = e.clientX + "px";
+glow.style.top = e.clientY + "px";
+glow.style.width = "10px";
+glow.style.height = "10px";
+glow.style.background = "rgba(255,0,60,.4)";
+glow.style.borderRadius = "50%";
+glow.style.pointerEvents = "none";
+glow.style.filter = "blur(10px)";
+glow.style.zIndex = "9999";
+
+document.body.appendChild(glow);
+
+setTimeout(() => {
+  glow.remove();
+}, 150);
+
+});
+
+</script>
 
 </body>
 </html>
