@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coca-Cola | Página Oficial</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#f5f5f5;
+      color:#222;
+      line-height:1.6;
+    }
+
+    header{
+      background:#e41c23;
+      color:white;
+      padding:20px 60px;
+      position:fixed;
+      width:100%;
+      top:0;
+      z-index:1000;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    header h1{
+      font-size:32px;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      margin-left:20px;
+      font-weight:bold;
+      transition:0.3s;
+    }
+
+    nav a:hover{
+      color:#000;
+    }
+
+    .hero{
+      height:100vh;
+      background:
+      linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+      url('https://images.unsplash.com/photo-1629203851122-3726ecdf080e?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      color:white;
+      padding:20px;
+    }
+
+    .hero-content h2{
+      font-size:60px;
+      margin-bottom:20px;
+    }
+
+    .hero-content p{
+      font-size:22px;
+      margin-bottom:30px;
+    }
+
+    .btn{
+      background:#e41c23;
+      color:white;
+      padding:15px 35px;
+      text-decoration:none;
+      border-radius:5px;
+      font-size:18px;
+      transition:0.3s;
+    }
+
+    .btn:hover{
+      background:#b31318;
+    }
+
+    section{
+      padding:100px 60px;
+    }
+
+    .title{
+      text-align:center;
+      margin-bottom:50px;
+    }
+
+    .title h2{
+      font-size:40px;
+      color:#e41c23;
+    }
+
+    .about{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:40px;
+      align-items:center;
+    }
+
+    .about img{
+      width:100%;
+      border-radius:10px;
+    }
+
+    .products{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:30px;
+    }
+
+    .card{
+      background:white;
+      border-radius:10px;
+      overflow:hidden;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+    }
+
+    .card img{
+      width:100%;
+      height:300px;
+      object-fit:cover;
+    }
+
+    .card-content{
+      padding:20px;
+      text-align:center;
+    }
+
+    .history{
+      background:#fff;
+    }
+
+    .timeline{
+      display:grid;
+      gap:30px;
+    }
+
+    .timeline-item{
+      background:#f0f0f0;
+      padding:25px;
+      border-left:6px solid #e41c23;
+      border-radius:5px;
+    }
+
+    .stats{
+      background:#e41c23;
+      color:white;
+    }
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:30px;
+      text-align:center;
+    }
+
+    .stat h3{
+      font-size:50px;
+    }
+
+    .contact{
+      background:#fff;
+    }
+
+    form{
+      max-width:700px;
+      margin:auto;
+      display:grid;
+      gap:20px;
+    }
+
+    input, textarea{
+      padding:15px;
+      border:1px solid #ccc;
+      border-radius:5px;
+      font-size:16px;
+    }
+
+    button{
+      background:#e41c23;
+      color:white;
+      border:none;
+      padding:15px;
+      font-size:18px;
+      border-radius:5px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    button:hover{
+      background:#b31318;
+    }
+
+    footer{
+      background:#111;
+      color:white;
+      text-align:center;
+      padding:30px;
+    }
+
+    @media(max-width:768px){
+
+      header{
+        flex-direction:column;
+      }
+
+      nav{
+        margin-top:10px;
+      }
+
+      .hero-content h2{
+        font-size:40px;
+      }
+
+      section{
+        padding:80px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <h1>Coca-Cola</h1>
+
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#productos">Productos</a>
+      <a href="#historia">Historia</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <h2>Destapa la Felicidad</h2>
+      <p>
+        La bebida más famosa del mundo acompañando momentos únicos desde 1886.
+      </p>
+
+      <a href="#productos" class="btn">Ver Productos</a>
+    </div>
+  </section>
+
+  <!-- SOBRE NOSOTROS -->
+  <section id="nosotros">
+    <div class="title">
+      <h2>Sobre Coca-Cola</h2>
+    </div>
+
+    <div class="about">
+      <div>
+        <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=1200&auto=format&fit=crop" alt="Coca Cola">
+      </div>
+
+      <div>
+        <h3>Una Marca Mundial</h3>
+
+        <p>
+          Coca-Cola es una de las marcas más reconocidas y consumidas en todo el mundo.
+          Presente en más de 200 países, la compañía ofrece bebidas refrescantes que
+          acompañan millones de momentos cada día.
+        </p>
+
+        <br>
+
+        <p>
+          Su misión es refrescar al mundo y marcar la diferencia mediante innovación,
+          sostenibilidad y experiencias inolvidables para sus consumidores.
+        </p>
+
+        <br>
+
+        <p>
+          La empresa también trabaja en iniciativas ambientales y sociales,
+          promoviendo el reciclaje y la reducción de residuos.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section id="productos">
+
+    <div class="title">
+      <h2>Nuestros Productos</h2>
+    </div>
+
+    <div class="products">
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1581636625402-29b2a704ef13?q=80&w=1200&auto=format&fit=crop" alt="">
+        <div class="card-content">
+          <h3>Coca-Cola Original</h3>
+          <p>
+            El sabor clásico e inconfundible que ha acompañado generaciones.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=1200&auto=format&fit=crop" alt="">
+        <div class="card-content">
+          <h3>Coca-Cola Zero</h3>
+          <p>
+            Todo el sabor de Coca-Cola sin azúcar.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1624517452488-04869289c4ca?q=80&w=1200&auto=format&fit=crop" alt="">
+        <div class="card-content">
+          <h3>Sprite</h3>
+          <p>
+            Refrescante sabor lima-limón ideal para cualquier ocasión.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1629203432180-71e9b6ef8d2f?q=80&w=1200&auto=format&fit=crop" alt="">
+        <div class="card-content">
+          <h3>Fanta</h3>
+          <p>
+            Bebida divertida y llena de sabor frutal.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section class="history" id="historia">
+
+    <div class="title">
+      <h2>Nuestra Historia</h2>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <h3>1886</h3>
+        <p>
+          John Pemberton crea la fórmula original de Coca-Cola en Atlanta, Estados Unidos.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>1892</h3>
+        <p>
+          Se funda oficialmente The Coca-Cola Company.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>1920 - 1950</h3>
+        <p>
+          Coca-Cola se expande internacionalmente y se convierte en una marca global.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <h3>Actualidad</h3>
+        <p>
+          Coca-Cola continúa innovando con nuevas bebidas, campañas y proyectos sostenibles.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ESTADISTICAS -->
+  <section class="stats">
+
+    <div class="title">
+      <h2 style="color:white;">Coca-Cola en Números</h2>
+    </div>
+
+    <div class="stats-grid">
+
+      <div class="stat">
+        <h3>200+</h3>
+        <p>Países</p>
+      </div>
+
+      <div class="stat">
+        <h3>1.9B</h3>
+        <p>Bebidas por día</p>
+      </div>
+
+      <div class="stat">
+        <h3>130+</h3>
+        <p>Años de historia</p>
+      </div>
+
+      <div class="stat">
+        <h3>500+</h3>
+        <p>Marcas globales</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contact" id="contacto">
+
+    <div class="title">
+      <h2>Contacto</h2>
+    </div>
+
+    <form>
+
+      <input type="text" placeholder="Tu nombre" required>
+
+      <input type="email" placeholder="Tu correo" required>
+
+      <textarea rows="6" placeholder="Escribe tu mensaje"></textarea>
+
+      <button type="submit">Enviar Mensaje</button>
+
+    </form>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>
+      © 2026 Coca-Cola Landing Page | Diseñada para GitHub Pages
+    </p>
+  </footer>
+
+</body>
+</html>
