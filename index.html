@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Coca-Cola | Premium Experience</title>
+<title>Coca-Cola | Ultra Premium Experience</title>
 
+<!-- FONTS -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<!-- THREE JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 
 <style>
 
-:root{
-  --red:#ff1f3d;
-  --dark:#050505;
-  --glass:rgba(255,255,255,0.08);
-  --white:#ffffff;
-  --gray:#cfcfcf;
-  --gradient:
-  linear-gradient(
-    135deg,
-    #ff1f3d,
-    #ff5c5c,
-    #ff003c
-  );
-}
+/* ===================================================
+   RESET
+=================================================== */
 
 *{
   margin:0;
@@ -35,80 +33,86 @@
   scroll-behavior:smooth;
 }
 
+:root{
+  --red:#ff002f;
+  --dark:#050505;
+  --soft:#111111;
+  --white:#ffffff;
+  --glass:rgba(255,255,255,.06);
+  --border:rgba(255,255,255,.08);
+}
+
 body{
-  font-family:'Poppins',sans-serif;
-  background:#050505;
+  font-family:'Inter',sans-serif;
+  background:#000;
   color:white;
   overflow-x:hidden;
 }
 
-/* SCROLL */
+/* ===================================================
+   CANVAS BG
+=================================================== */
 
-::-webkit-scrollbar{
-  width:10px;
-}
-
-::-webkit-scrollbar-track{
-  background:#111;
-}
-
-::-webkit-scrollbar-thumb{
-  background:var(--red);
-  border-radius:20px;
-}
-
-/* PARTICLES */
-
-.particles{
+#bg{
   position:fixed;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
-  overflow:hidden;
-  z-index:-2;
+  z-index:-10;
 }
 
-.particles span{
-  position:absolute;
-  display:block;
-  width:4px;
-  height:4px;
-  background:white;
+/* ===================================================
+   CURSOR
+=================================================== */
+
+.cursor{
+  width:25px;
+  height:25px;
+  border:2px solid var(--red);
   border-radius:50%;
-  animation:animate 25s linear infinite;
-  opacity:.3;
+  position:fixed;
+  pointer-events:none;
+  z-index:999999;
+  transform:translate(-50%,-50%);
+  transition:transform .1s;
+  mix-blend-mode:difference;
 }
 
-@keyframes animate{
-  0%{
-    transform:translateY(100vh) scale(0);
-  }
-
-  100%{
-    transform:translateY(-10vh) scale(1);
-  }
+.cursor2{
+  width:8px;
+  height:8px;
+  background:var(--red);
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:999999;
+  transform:translate(-50%,-50%);
 }
 
-/* HEADER */
+/* ===================================================
+   HEADER
+=================================================== */
 
 header{
   position:fixed;
-  top:0;
   width:100%;
-  padding:25px 80px;
+  top:0;
+  left:0;
+  padding:30px 90px;
   display:flex;
   justify-content:space-between;
   align-items:center;
   z-index:999;
   backdrop-filter:blur(20px);
-  background:rgba(0,0,0,0.3);
-  border-bottom:1px solid rgba(255,255,255,0.08);
+  background:rgba(0,0,0,.2);
+  border-bottom:1px solid rgba(255,255,255,.05);
 }
 
 .logo{
-  font-size:38px;
-  font-weight:800;
+  font-size:42px;
+  font-weight:900;
   letter-spacing:2px;
-  color:white;
 }
 
 .logo span{
@@ -128,7 +132,7 @@ nav a::after{
   content:"";
   position:absolute;
   left:0;
-  bottom:-6px;
+  bottom:-7px;
   width:0%;
   height:2px;
   background:var(--red);
@@ -143,65 +147,51 @@ nav a:hover{
   color:var(--red);
 }
 
-/* HERO */
+/* ===================================================
+   HERO
+=================================================== */
 
 .hero{
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
+  padding:0 10%;
   position:relative;
-  overflow:hidden;
 }
 
-.hero::before{
-  content:"";
-  position:absolute;
-  width:700px;
-  height:700px;
-  background:radial-gradient(circle,var(--red),transparent 70%);
-  filter:blur(100px);
-  opacity:.4;
-  animation:pulse 5s infinite alternate;
-}
-
-@keyframes pulse{
-  from{
-    transform:scale(1);
-  }
-
-  to{
-    transform:scale(1.3);
-  }
-}
-
-.hero-content{
-  width:90%;
-  max-width:1400px;
+.hero-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  align-items:center;
   gap:80px;
+  align-items:center;
+  width:100%;
 }
 
 .hero-text h1{
-  font-size:90px;
-  line-height:1;
-  margin-bottom:25px;
-  font-weight:800;
+  font-size:110px;
+  line-height:.95;
+  font-weight:900;
+  margin-bottom:35px;
 }
 
-.hero-text h1 span{
-  background:var(--gradient);
+.gradient{
+  background:linear-gradient(
+  90deg,
+  #ff002f,
+  #ff5c5c,
+  #ffffff
+  );
+
   -webkit-background-clip:text;
   color:transparent;
 }
 
 .hero-text p{
-  font-size:22px;
-  color:#ddd;
-  margin-bottom:40px;
-  line-height:1.8;
+  color:#bdbdbd;
+  font-size:20px;
+  line-height:1.9;
+  margin-bottom:45px;
 }
 
 .buttons{
@@ -210,28 +200,28 @@ nav a:hover{
 }
 
 .btn{
-  padding:18px 40px;
-  border-radius:50px;
+  padding:18px 42px;
+  border-radius:70px;
   text-decoration:none;
-  font-weight:600;
-  transition:.4s;
-  position:relative;
+  font-weight:700;
+  transition:.5s;
   overflow:hidden;
+  position:relative;
 }
 
 .btn-primary{
-  background:var(--gradient);
+  background:linear-gradient(90deg,#ff002f,#ff3b3b);
   color:white;
-  box-shadow:0 0 30px rgba(255,0,60,.4);
+  box-shadow:0 0 40px rgba(255,0,47,.5);
 }
 
 .btn-primary:hover{
-  transform:translateY(-5px) scale(1.05);
-  box-shadow:0 0 50px rgba(255,0,60,.7);
+  transform:translateY(-8px) scale(1.05);
+  box-shadow:0 0 60px rgba(255,0,47,.8);
 }
 
 .btn-secondary{
-  border:1px solid rgba(255,255,255,0.2);
+  border:1px solid rgba(255,255,255,.1);
   color:white;
   backdrop-filter:blur(20px);
 }
@@ -241,7 +231,9 @@ nav a:hover{
   color:black;
 }
 
-/* HERO IMAGE */
+/* ===================================================
+   HERO IMAGE
+=================================================== */
 
 .hero-image{
   position:relative;
@@ -250,73 +242,95 @@ nav a:hover{
   align-items:center;
 }
 
+.circle{
+  position:absolute;
+  width:650px;
+  height:650px;
+  border-radius:50%;
+  background:radial-gradient(circle,var(--red),transparent 70%);
+  filter:blur(100px);
+  opacity:.5;
+  animation:pulse 5s infinite alternate;
+}
+
+@keyframes pulse{
+
+  from{
+    transform:scale(1);
+  }
+
+  to{
+    transform:scale(1.3);
+  }
+
+}
+
 .hero-image img{
   width:100%;
-  max-width:550px;
-  animation:float 5s ease-in-out infinite;
-  filter:drop-shadow(0 0 60px rgba(255,0,60,.5));
+  max-width:520px;
+  z-index:2;
+  filter:drop-shadow(0 0 80px rgba(255,0,47,.7));
 }
 
-@keyframes float{
-  0%{
-    transform:translateY(0px);
-  }
-
-  50%{
-    transform:translateY(-25px);
-  }
-
-  100%{
-    transform:translateY(0px);
-  }
-}
-
-/* GLASS CARD */
-
-.glass{
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter:blur(20px);
-  border-radius:30px;
-  box-shadow:0 8px 40px rgba(0,0,0,.4);
-}
-
-/* SECTION */
+/* ===================================================
+   SECTIONS
+=================================================== */
 
 section{
-  padding:120px 8%;
+  padding:140px 10%;
+  position:relative;
 }
 
 .section-title{
-  text-align:center;
   margin-bottom:80px;
+  text-align:center;
 }
 
 .section-title h2{
-  font-size:60px;
+  font-size:70px;
   margin-bottom:20px;
 }
 
 .section-title p{
-  color:#aaa;
+  color:#999;
   max-width:700px;
   margin:auto;
   line-height:1.8;
 }
 
-/* PRODUCTS */
+/* ===================================================
+   GLASS
+=================================================== */
 
-.products{
+.glass{
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:35px;
+  box-shadow:
+  0 10px 40px rgba(0,0,0,.5),
+  inset 0 1px 1px rgba(255,255,255,.05);
+}
+
+/* ===================================================
+   CARDS
+=================================================== */
+
+.cards{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
   gap:40px;
 }
 
 .card{
-  padding:30px;
-  transition:.5s;
-  position:relative;
+  padding:40px;
   overflow:hidden;
+  position:relative;
+  transition:.6s;
+}
+
+.card:hover{
+  transform:translateY(-20px);
 }
 
 .card::before{
@@ -326,8 +340,9 @@ section{
   background:linear-gradient(
   180deg,
   transparent,
-  rgba(255,0,60,.2)
+  rgba(255,0,47,.2)
   );
+
   opacity:0;
   transition:.5s;
 }
@@ -336,33 +351,30 @@ section{
   opacity:1;
 }
 
-.card:hover{
-  transform:translateY(-15px);
-}
-
 .card img{
   width:100%;
-  height:350px;
+  height:320px;
   object-fit:contain;
-  margin-bottom:20px;
-  transition:.5s;
+  transition:.6s;
 }
 
 .card:hover img{
-  transform:scale(1.08) rotate(-3deg);
+  transform:scale(1.1) rotate(-5deg);
 }
 
 .card h3{
-  font-size:30px;
-  margin-bottom:15px;
+  font-size:32px;
+  margin:25px 0 15px;
 }
 
 .card p{
-  color:#bbb;
-  line-height:1.8;
+  color:#aaa;
+  line-height:1.9;
 }
 
-/* STATS */
+/* ===================================================
+   STATS
+=================================================== */
 
 .stats{
   display:grid;
@@ -371,71 +383,73 @@ section{
 }
 
 .stat{
+  padding:50px;
   text-align:center;
-  padding:50px 30px;
 }
 
 .stat h3{
-  font-size:70px;
-  background:var(--gradient);
+  font-size:80px;
+  background:linear-gradient(90deg,#ff002f,#ffffff);
   -webkit-background-clip:text;
   color:transparent;
 }
 
 .stat p{
   margin-top:10px;
-  color:#ccc;
+  color:#999;
   font-size:20px;
 }
 
-/* VIDEO SECTION */
+/* ===================================================
+   VIDEO
+=================================================== */
 
 .video-section{
   position:relative;
-  min-height:80vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  height:100vh;
   overflow:hidden;
 }
 
 .video-section video{
-  position:absolute;
   width:100%;
   height:100%;
   object-fit:cover;
-  z-index:-2;
 }
 
 .overlay{
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,.6);
-  z-index:-1;
+  background:rgba(0,0,0,.65);
 }
 
 .video-content{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
   text-align:center;
-  max-width:900px;
+  width:90%;
 }
 
 .video-content h2{
-  font-size:70px;
-  margin-bottom:20px;
+  font-size:90px;
+  margin-bottom:25px;
 }
 
 .video-content p{
   color:#ddd;
+  font-size:22px;
   line-height:1.8;
-  font-size:20px;
 }
 
-/* CONTACT */
+/* ===================================================
+   CONTACT
+=================================================== */
 
-.contact-wrapper{
-  max-width:900px;
+.contact{
+  max-width:1000px;
   margin:auto;
-  padding:50px;
+  padding:60px;
 }
 
 form{
@@ -445,55 +459,46 @@ form{
 
 input,
 textarea{
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,.1);
-  padding:20px;
-  border-radius:15px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  padding:22px;
+  border-radius:20px;
   color:white;
   font-size:16px;
   outline:none;
-  transition:.4s;
+  transition:.5s;
 }
 
 input:focus,
 textarea:focus{
   border-color:var(--red);
-  box-shadow:0 0 20px rgba(255,0,60,.3);
+  box-shadow:0 0 30px rgba(255,0,47,.3);
 }
 
-/* FOOTER */
+/* ===================================================
+   FOOTER
+=================================================== */
 
 footer{
-  padding:40px;
+  padding:50px;
   text-align:center;
-  border-top:1px solid rgba(255,255,255,.08);
-  color:#888;
+  color:#777;
+  border-top:1px solid rgba(255,255,255,.05);
 }
 
-/* REVEAL ANIMATION */
+/* ===================================================
+   RESPONSIVE
+=================================================== */
 
-.reveal{
-  opacity:0;
-  transform:translateY(80px);
-  transition:1s;
-}
+@media(max-width:1100px){
 
-.reveal.active{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* MOBILE */
-
-@media(max-width:1000px){
-
-.hero-content{
+.hero-grid{
   grid-template-columns:1fr;
   text-align:center;
 }
 
 .hero-text h1{
-  font-size:65px;
+  font-size:75px;
 }
 
 .buttons{
@@ -514,33 +519,28 @@ nav a{
 }
 
 .section-title h2{
-  font-size:45px;
+  font-size:50px;
 }
 
 .video-content h2{
-  font-size:45px;
+  font-size:55px;
 }
 
 }
 
 </style>
-</head>
 
+</head>
 <body>
 
-<!-- PARTICLES -->
+<!-- CANVAS -->
 
-<div class="particles">
-  <span style="left:10%;animation-delay:0s;"></span>
-  <span style="left:20%;animation-delay:2s;"></span>
-  <span style="left:30%;animation-delay:4s;"></span>
-  <span style="left:40%;animation-delay:6s;"></span>
-  <span style="left:50%;animation-delay:8s;"></span>
-  <span style="left:60%;animation-delay:10s;"></span>
-  <span style="left:70%;animation-delay:12s;"></span>
-  <span style="left:80%;animation-delay:14s;"></span>
-  <span style="left:90%;animation-delay:16s;"></span>
-</div>
+<canvas id="bg"></canvas>
+
+<!-- CURSOR -->
+
+<div class="cursor"></div>
+<div class="cursor2"></div>
 
 <!-- HEADER -->
 
@@ -551,43 +551,59 @@ nav a{
 </div>
 
 <nav>
-  <a href="#inicio">Inicio</a>
-  <a href="#productos">Productos</a>
-  <a href="#stats">Impacto</a>
-  <a href="#contacto">Contacto</a>
+  <a href="#">Inicio</a>
+  <a href="#">Productos</a>
+  <a href="#">Experiencia</a>
+  <a href="#">Contacto</a>
 </nav>
 
 </header>
 
 <!-- HERO -->
 
-<section class="hero" id="inicio">
+<section class="hero">
 
-<div class="hero-content">
+<div class="hero-grid">
 
-<div class="hero-text reveal">
+<div class="hero-text">
 
 <h1>
-  Destapa la
-  <span>Experiencia</span>
+  THE
+  <span class="gradient">
+    FUTURE
+  </span>
+  OF
+  COKE
 </h1>
 
 <p>
-  Una landing page ultra premium inspirada en el futuro del diseño web.
-  Animaciones avanzadas, glassmorphism, efectos cinematográficos,
-  partículas dinámicas y una experiencia visual de nivel profesional.
+  Una experiencia web cinematográfica ultra premium con animaciones 3D,
+  partículas avanzadas, glassmorphism, scroll effects, cursor dinámico,
+  iluminación interactiva y diseño futurista de nivel Apple / Tesla / Nike.
 </p>
 
 <div class="buttons">
-  <a href="#productos" class="btn btn-primary">Explorar</a>
-  <a href="#contacto" class="btn btn-secondary">Contacto</a>
-</div>
+
+<a href="#" class="btn btn-primary">
+  Explorar
+</a>
+
+<a href="#" class="btn btn-secondary">
+  Ver Demo
+</a>
 
 </div>
 
-<div class="hero-image reveal">
+</div>
 
-<img src="https://pngimg.com/d/cocacola_PNG13.png">
+<div class="hero-image">
+
+<div class="circle"></div>
+
+<img
+src="https://pngimg.com/d/cocacola_PNG14.png"
+class="bottle"
+/>
 
 </div>
 
@@ -597,50 +613,54 @@ nav a{
 
 <!-- PRODUCTS -->
 
-<section id="productos">
+<section>
 
-<div class="section-title reveal">
-  <h2>Nuestros Productos</h2>
+<div class="section-title">
 
-  <p>
-    Diseño elegante, efectos modernos y presentación premium para cada bebida.
-  </p>
+<h2 class="gradient">
+  Premium Collection
+</h2>
+
+<p>
+  Diseño ultra moderno inspirado en experiencias de marcas globales.
+</p>
+
 </div>
 
-<div class="products">
+<div class="cards">
 
-<div class="card glass reveal">
+<div class="card glass">
 
 <img src="https://pngimg.com/d/cocacola_PNG14.png">
 
-<h3>Coca-Cola Original</h3>
+<h3>Coca-Cola</h3>
 
 <p>
-  El sabor legendario reinventado con una experiencia digital futurista.
+  Experiencia visual con efectos holográficos y animaciones avanzadas.
 </p>
 
 </div>
 
-<div class="card glass reveal">
+<div class="card glass">
 
 <img src="https://pngimg.com/d/cocacola_PNG9.png">
 
-<h3>Coca-Cola Zero</h3>
+<h3>Zero Sugar</h3>
 
 <p>
-  Estilo moderno con detalles visuales de alto impacto y lujo visual.
+  Diseño sofisticado con iluminación cinematográfica y profundidad visual.
 </p>
 
 </div>
 
-<div class="card glass reveal">
+<div class="card glass">
 
 <img src="https://pngimg.com/d/fanta_PNG25.png">
 
 <h3>Fanta</h3>
 
 <p>
-  Colores vibrantes, animaciones suaves y diseño interactivo avanzado.
+  Colores vibrantes, interacción premium y sensación futurista.
 </p>
 
 </div>
@@ -649,23 +669,28 @@ nav a{
 
 </section>
 
-<!-- VIDEO SECTION -->
+<!-- VIDEO -->
 
 <section class="video-section">
 
 <video autoplay muted loop playsinline>
-  <source src="https://cdn.coverr.co/videos/coverr-bubbles-in-soda-1560083867217?download=1080p" type="video/mp4">
+
+<source
+src="https://cdn.coverr.co/videos/coverr-bubbles-in-soda-1560083867217?download=1080p"
+type="video/mp4">
+
 </video>
 
 <div class="overlay"></div>
 
-<div class="video-content reveal">
+<div class="video-content">
 
-<h2>Diseño Cinematográfico</h2>
+<h2 class="gradient">
+  Cinematic Experience
+</h2>
 
 <p>
-  Esta sección usa video fullscreen de fondo, overlays oscuros,
-  tipografía premium y efectos visuales inmersivos.
+  Tecnología visual avanzada integrada directamente en la experiencia web.
 </p>
 
 </div>
@@ -674,32 +699,36 @@ nav a{
 
 <!-- STATS -->
 
-<section id="stats">
+<section>
 
-<div class="section-title reveal">
-  <h2>Coca-Cola en Números</h2>
+<div class="section-title">
+
+<h2>
+  Global Impact
+</h2>
+
 </div>
 
 <div class="stats">
 
-<div class="stat glass reveal">
+<div class="stat glass">
   <h3>200+</h3>
   <p>Países</p>
 </div>
 
-<div class="stat glass reveal">
+<div class="stat glass">
   <h3>1.9B</h3>
-  <p>Bebidas al día</p>
+  <p>Bebidas diarias</p>
 </div>
 
-<div class="stat glass reveal">
+<div class="stat glass">
   <h3>500+</h3>
-  <p>Marcas globales</p>
+  <p>Marcas</p>
 </div>
 
-<div class="stat glass reveal">
-  <h3>138+</h3>
-  <p>Años de historia</p>
+<div class="stat glass">
+  <h3>138</h3>
+  <p>Años</p>
 </div>
 
 </div>
@@ -708,27 +737,25 @@ nav a{
 
 <!-- CONTACT -->
 
-<section id="contacto">
+<section>
 
-<div class="section-title reveal">
+<div class="section-title">
 
-<h2>Contacto Premium</h2>
-
-<p>
-  Formulario moderno con glassmorphism y efectos avanzados.
-</p>
+<h2 class="gradient">
+  Contact Experience
+</h2>
 
 </div>
 
-<div class="contact-wrapper glass reveal">
+<div class="contact glass">
 
 <form>
 
-<input type="text" placeholder="Tu Nombre">
+<input type="text" placeholder="Nombre">
 
-<input type="email" placeholder="Tu Correo">
+<input type="email" placeholder="Correo">
 
-<textarea rows="6" placeholder="Escribe tu mensaje"></textarea>
+<textarea rows="6" placeholder="Mensaje"></textarea>
 
 <button class="btn btn-primary">
   Enviar Mensaje
@@ -743,68 +770,189 @@ nav a{
 <!-- FOOTER -->
 
 <footer>
-  © 2026 Coca-Cola Premium Experience | Ultra Modern UI
+  © 2026 Coca-Cola Ultra Premium Experience
 </footer>
 
-<!-- JAVASCRIPT -->
+<!-- ===================================================
+     JAVASCRIPT
+=================================================== -->
 
 <script>
 
-// REVEAL ON SCROLL
+/* ===================================================
+   CURSOR
+=================================================== */
 
-window.addEventListener('scroll', reveal);
+const cursor = document.querySelector(".cursor");
+const cursor2 = document.querySelector(".cursor2");
 
-function reveal(){
+document.addEventListener("mousemove",(e)=>{
 
-const reveals = document.querySelectorAll('.reveal');
+cursor.style.left = e.clientX + "px";
+cursor.style.top = e.clientY + "px";
 
-for(let i = 0; i < reveals.length; i++){
-
-let windowheight = window.innerHeight;
-let revealtop = reveals[i].getBoundingClientRect().top;
-let revealpoint = 100;
-
-if(revealtop < windowheight - revealpoint){
-  reveals[i].classList.add('active');
-}
-
-}
-
-}
-
-// PARALLAX EFFECT
-
-window.addEventListener("scroll", function(){
-
-const scrolled = window.pageYOffset;
-
-document.querySelector(".hero-image img").style.transform =
-`translateY(${scrolled * 0.1}px)`;
+cursor2.style.left = e.clientX + "px";
+cursor2.style.top = e.clientY + "px";
 
 });
 
-// MOUSE GLOW
+/* ===================================================
+   GSAP
+=================================================== */
 
-document.addEventListener("mousemove", e => {
+gsap.registerPlugin(ScrollTrigger);
 
-const glow = document.createElement("div");
+gsap.from(".hero-text h1",{
+  y:120,
+  opacity:0,
+  duration:1.4
+});
 
-glow.style.position = "fixed";
-glow.style.left = e.clientX + "px";
-glow.style.top = e.clientY + "px";
-glow.style.width = "10px";
-glow.style.height = "10px";
-glow.style.background = "rgba(255,0,60,.4)";
-glow.style.borderRadius = "50%";
-glow.style.pointerEvents = "none";
-glow.style.filter = "blur(10px)";
-glow.style.zIndex = "9999";
+gsap.from(".hero-text p",{
+  y:80,
+  opacity:0,
+  duration:1.4,
+  delay:.3
+});
 
-document.body.appendChild(glow);
+gsap.from(".btn",{
+  y:50,
+  opacity:0,
+  duration:1,
+  stagger:.2,
+  delay:.6
+});
 
-setTimeout(() => {
-  glow.remove();
-}, 150);
+gsap.from(".bottle",{
+  scale:.5,
+  rotate:20,
+  opacity:0,
+  duration:1.5
+});
+
+/* ===================================================
+   SCROLL ANIMATIONS
+=================================================== */
+
+gsap.utils.toArray(".card").forEach(card=>{
+
+gsap.from(card,{
+  scrollTrigger:{
+    trigger:card,
+    start:"top 85%"
+  },
+  y:120,
+  opacity:0,
+  duration:1
+});
+
+});
+
+gsap.utils.toArray(".stat").forEach(stat=>{
+
+gsap.from(stat,{
+  scrollTrigger:{
+    trigger:stat,
+    start:"top 90%"
+  },
+  scale:.7,
+  opacity:0,
+  duration:1
+});
+
+});
+
+/* ===================================================
+   PARALLAX
+=================================================== */
+
+window.addEventListener("scroll",()=>{
+
+const scrollY = window.scrollY;
+
+document.querySelector(".bottle").style.transform =
+`translateY(${scrollY * 0.12}px) rotate(${scrollY * 0.02}deg)`;
+
+});
+
+/* ===================================================
+   THREE JS PARTICLES
+=================================================== */
+
+const canvas = document.getElementById("bg");
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(
+75,
+window.innerWidth/window.innerHeight,
+0.1,
+1000
+);
+
+const renderer = new THREE.WebGLRenderer({
+canvas,
+alpha:true
+});
+
+renderer.setSize(window.innerWidth,window.innerHeight);
+
+camera.position.z = 5;
+
+const particlesGeometry = new THREE.BufferGeometry();
+
+const particlesCount = 5000;
+
+const posArray = new Float32Array(particlesCount * 3);
+
+for(let i=0; i<particlesCount * 3; i++){
+
+posArray[i] = (Math.random() - 0.5) * 15;
+
+}
+
+particlesGeometry.setAttribute(
+'position',
+new THREE.BufferAttribute(posArray,3)
+);
+
+const particlesMaterial = new THREE.PointsMaterial({
+size:0.01,
+color:"#ff003c"
+});
+
+const particlesMesh =
+new THREE.Points(
+particlesGeometry,
+particlesMaterial
+);
+
+scene.add(particlesMesh);
+
+function animate(){
+
+requestAnimationFrame(animate);
+
+particlesMesh.rotation.y += 0.0008;
+particlesMesh.rotation.x += 0.0003;
+
+renderer.render(scene,camera);
+
+}
+
+animate();
+
+window.addEventListener("resize",()=>{
+
+camera.aspect =
+window.innerWidth/window.innerHeight;
+
+camera.updateProjectionMatrix();
+
+renderer.setSize(
+window.innerWidth,
+window.innerHeight
+);
 
 });
 
